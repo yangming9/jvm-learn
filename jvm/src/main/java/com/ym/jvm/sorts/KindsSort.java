@@ -12,7 +12,10 @@ public class KindsSort {
 //        select_sort(arr);//选择排序
 //        insert_sort(arr);//插入排序
 //        shell_sort(arr);//希尔排序
-        quick_sort(arr, 0, arr.length - 1);//快速排序
+//        quick_sort(arr, 0, arr.length - 1);//快速排序
+//        int[] temp = new int[arr.length];//归并排序临时数组
+//        merge_sort(arr,0,arr.length-1,temp);//归并排序
+        //基数排序
         System.out.println(Arrays.toString(arr));
     }
 
@@ -154,5 +157,59 @@ public class KindsSort {
                 quick_sort(arr, left, r);
             }
         }
+    }
+
+    /**
+     * 归并排序
+     * 思路：关键是合并的思想
+     * 归并的思想在于分解完成后，利用临时数组 将数据记录下来后拷贝到排序数组中
+     * @param arr  待排序数组
+     * @param left  数组的左侧下标
+     * @param right  右侧下标
+     * @param temp  临时数组
+     */
+    private static void merge_sort(int[] arr,int left,int right,int[] temp){
+        if (left<right){
+            int mid = left+(right-left)/2;
+            merge_sort(arr, left, mid, temp);
+            merge_sort(arr, mid+1, right, temp);
+            merge(arr,left,mid,right,temp);
+        }
+    }
+
+    /**
+     * 归并排序的辅助函数  用于合并分解后的数组分组元素
+     */
+    private static void merge(int[] arr,int left,int mid,int right,int[] temp){
+        int i = left;//左侧序列的初始下标
+        int j = mid+1;//右侧序列的初始下标
+        int t = 0;
+//        将两边的元素拷贝到临时数组
+        while (i<= mid && j<=right){
+            if (arr[i] < arr[j]){
+                temp[t++] = arr[i++];
+            }else {
+                temp[t++] = arr[j++];
+            }
+        }
+
+        //将上述数组中剩余元素拷贝到数组中
+        while (i<=mid){
+            temp[t++] = arr[i++];
+        }
+        while (j<=right){
+            temp[t++] = arr[j++];
+        }
+
+        //将所有临时数组中已经拷贝进去的元素放入到原数组中
+        t=0;
+        int tempLeft = left;
+        while (tempLeft <= right){
+            arr[tempLeft++] = temp[t++];
+        }
+    }
+
+    private static void base_sort(int[] arr){
+
     }
 }
