@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class KindsSort {
     public static void main(String[] args) {
         int arr[] = {5, 1, 12, 5, 1, 12, -5, 16, -5, 16};
+        int arr2[] = {5, 1, 12, 5, 1, 12,16,16};
 //        bubble_sort(arr);//冒泡排序
 //        select_sort(arr);//选择排序
 //        insert_sort(arr);//插入排序
@@ -15,8 +16,8 @@ public class KindsSort {
 //        quick_sort(arr, 0, arr.length - 1);//快速排序
 //        int[] temp = new int[arr.length];//归并排序临时数组
 //        merge_sort(arr,0,arr.length-1,temp);//归并排序
-        //基数排序
-        System.out.println(Arrays.toString(arr));
+        base_sort(arr2);//基数排序
+        System.out.println(Arrays.toString(arr2));
     }
 
     /**
@@ -209,7 +210,47 @@ public class KindsSort {
         }
     }
 
+    /**
+     * 基数排序
+     * 思路：
+     * 1.先找出最大的数，确定好最大的循环次数
+     * 2.每次都将相同数量级的数先放入对应的桶中，然后再按照桶的顺序将数放入原数组中
+     * 3.循环完毕后即排序完毕
+     * @param arr  待排序数组
+     */
     private static void base_sort(int[] arr){
+        //1.寻找最大的数
+        int maxVal = arr[0];
+        for (int i = 0;i<arr.length;i++){
+            if (maxVal < arr[i]){
+                maxVal = arr[i];
+            }
+        }
+        int maxLength = (maxVal+"").length();
+
+        //2.定义桶的数量
+        int[][] bucket = new int[10][arr.length];//定义10个桶 每个桶为arr.length的容量
+
+        int[] bucketElementCounts = new int[10];//定义每个桶对应的元素的个数
+
+        for (int i = 0,n=1;i<maxLength;i++,n *=10){
+            for (int j=0;j<arr.length;j++) {
+                int bElement = (arr[j]/n)%10;
+                bucket[bElement][bucketElementCounts[bElement]] = arr[j];
+                bucketElementCounts[bElement]++;
+            }
+
+            //将元素从桶中放回数组中去
+            int index = 0;
+            for (int l = 0;l<10;l++){
+                if (bucketElementCounts[l] != 0){
+                    for (int k=0;k<bucketElementCounts[l];k++){
+                        arr[index++] = bucket[l][k];
+                    }
+                }
+                bucketElementCounts[l] = 0;
+            }
+        }
 
     }
 }
