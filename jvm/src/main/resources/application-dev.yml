@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name:
+    url:
+    data-username: root
+    data-password: 123456
+  redis:
+    host: localhost
+    database: 0
+    port: 6379
+    password: 123456
