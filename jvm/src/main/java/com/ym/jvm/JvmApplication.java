@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JvmApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(JvmApplication.class, args);
+
     }
 
 }

@@ -1,7 +1,7 @@
 spring:
   datasource:
-    driver-class-name:
-    url:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/miaosha?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
     data-username: root
     data-password: 123456
   redis:
@@ -9,3 +9,8 @@ spring:
     database: 0
     port: 6379
     password: 123456
+  data:
+    mongodb:
+      host: 192.168.3.24
+      database: learn
+
